@@ -263,9 +263,6 @@ require('lazy').setup({
   -- my plugins
   {
     'ThePrimeagen/vim-be-good',
-    cond = function()
-      return not vim.g.vscode
-    end,
   },
   {
     'nvim-tree/nvim-tree.lua',
@@ -560,9 +557,6 @@ require('lazy').setup({
   },
   {
     'Bilal2453/luvit-meta',
-    cond = function()
-      return not vim.g.vscode
-    end,
     lazy = true,
   },
   {
