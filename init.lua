@@ -261,6 +261,11 @@ require('lazy').setup({
     },
   },
   { 'ThePrimeagen/vim-be-good' },
+    'ThePrimeagen/vim-be-good',
+    cond = function()
+      return not vim.g.vscode
+    end,
+  },
   {
     'nvim-tree/nvim-tree.lua',
     lazy = false,
@@ -294,19 +299,24 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>a', function()
         harpoon:list():add()
       end, { desc = '[A]dd to Harpoon' })
-      vim.keymap.set('n', '<C-e>', function()
+
+      vim.keymap.set('n', '<leader>e', function()
         harpoon.ui:toggle_quick_menu(harpoon:list())
-      end)
+      end, { desc = '[E]nter Harpoon Window' })
+
       vim.keymap.set('n', '<C-h>', function()
         harpoon:list():select(1)
       end)
-      vim.keymap.set('n', '<C-t>', function()
+
+      vim.keymap.set('n', '<C-j>', function()
         harpoon:list():select(2)
       end)
-      vim.keymap.set('n', '<C-n>', function()
+
+      vim.keymap.set('n', '<C-k>', function()
         harpoon:list():select(3)
       end)
-      vim.keymap.set('n', '<C-s>', function()
+
+      vim.keymap.set('n', '<C-l>', function()
         harpoon:list():select(4)
       end)
 
@@ -317,6 +327,7 @@ require('lazy').setup({
       vim.keymap.set('n', '<C-S-N>', function()
         harpoon:list():next()
       end)
+
       -- basic telescope configuration
       local conf = require('telescope.config').values
       local function toggle_telescope(harpoon_files)
@@ -336,9 +347,10 @@ require('lazy').setup({
           })
           :find()
       end
-      vim.keymap.set('n', '<leader>e', function()
+
+      vim.keymap.set('n', '<leader>sa', function()
         toggle_telescope(harpoon:list())
-      end, { desc = 'Open harpoon window' })
+      end, { desc = '[S]earch H[a]rpoon Window' })
     end,
   },
   -- NOTE: Plugins can also be configured to run Lua code when they are loaded.
@@ -491,13 +503,14 @@ require('lazy').setup({
       local builtin = require 'telescope.builtin'
       vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
       vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
-      -- vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
-      vim.api.nvim_set_keymap(
-        'n',
-        '<Leader>sf',
-        ':lua require"telescope.builtin".find_files({ hidden = true })<CR>',
-        { desc = '[S]earch [F]iles', noremap = true, silent = true }
-      )
+      vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
+      -- -- search hidden files
+      -- vim.api.nvim_set_keymap(
+      --   'n',
+      --   '<Leader>sf',
+      --   ':lua require"telescope.builtin".find_files({ hidden = true })<CR>',
+      --   { desc = '[S]earch [F]iles', noremap = true, silent = true }
+      -- )
       vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
       vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
       vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
@@ -544,7 +557,13 @@ require('lazy').setup({
       },
     },
   },
-  { 'Bilal2453/luvit-meta', lazy = true },
+  {
+    'Bilal2453/luvit-meta',
+    cond = function()
+      return not vim.g.vscode
+    end,
+    lazy = true,
+  },
   {
     -- Main LSP Configuration
     'neovim/nvim-lspconfig',
@@ -943,7 +962,11 @@ require('lazy').setup({
     end,
     opts = {
       color_set = 'mellifluous',
-      transparent_background = { enabled = true },
+      transparent_background = { enabled = false },
+      mellifluous = {
+        neutral = false,
+        bg_contrast = 'hard',
+      },
     },
   },
 
@@ -993,7 +1016,7 @@ require('lazy').setup({
     main = 'nvim-treesitter.configs', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
-      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
+      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc', 'yaml' },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
