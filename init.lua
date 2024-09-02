@@ -260,7 +260,8 @@ require('lazy').setup({
       },
     },
   },
-  { 'ThePrimeagen/vim-be-good' },
+  -- my plugins
+  {
     'ThePrimeagen/vim-be-good',
     cond = function()
       return not vim.g.vscode
