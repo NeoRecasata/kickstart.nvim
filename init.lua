@@ -715,6 +715,7 @@ require('lazy').setup({
         -- clangd = {},
         -- gopls = {},
         -- pyright = {},
+        pylyzer = {},
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
@@ -753,7 +754,9 @@ require('lazy').setup({
       -- for you, so that they are available from within Neovim.
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
-        'stylua', -- Used to format Lua code
+        'stylua', -- Used to format Lua code,
+        'ruff', -- an extremely fast python linter and code formatter written in rust
+        'black', -- a python formatter
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -819,6 +822,7 @@ require('lazy').setup({
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
         -- javascript = { "prettierd", "prettier", stop_after_first = true },
+        python = { 'black' },
       },
     },
   },
@@ -894,7 +898,7 @@ require('lazy').setup({
 
           -- If you prefer more traditional completion keymaps,
           -- you can uncomment the following lines
-          --['<CR>'] = cmp.mapping.confirm { select = true },
+          -- ['<CR>'] = cmp.mapping.confirm { select = true },
           --['<Tab>'] = cmp.mapping.select_next_item(),
           --['<S-Tab>'] = cmp.mapping.select_prev_item(),
 
@@ -956,7 +960,7 @@ require('lazy').setup({
       vim.cmd.hi 'Comment gui=none'
     end,
     opts = {
-      color_set = 'mellifluous',
+      color_set = 'mountain', -- mellifluous, alduin, mountain, tender, kanagawa_dragon
       transparent_background = { enabled = false },
       mellifluous = {
         neutral = false,
@@ -1011,7 +1015,7 @@ require('lazy').setup({
     main = 'nvim-treesitter.configs', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
-      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc', 'yaml' },
+      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc', 'yaml', 'python' },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
