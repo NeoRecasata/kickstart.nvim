@@ -351,6 +351,26 @@ require('lazy').setup({
       end, { desc = '[S]earch H[a]rpoon Window' })
     end,
   },
+  {
+    'MeanderingProgrammer/render-markdown.nvim',
+    dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.nvim' }, -- if you use the mini.nvim suiteeck
+    -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' }, -- if you use standalone mini plugins
+    -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
+    config = function()
+      local render_markdown = require 'render-markdown'
+      render_markdown.setup {
+        -- Pre configured settings that will attempt to mimic various target
+        -- user experiences. Any user provided settings will take precedence.
+        --  obsidian: mimic Obsidian UI
+        --  lazy:     will attempt to stay up to date with LazyVim configuration
+        --  none:     does nothing
+        preset = 'none',
+      }
+      vim.keymap.set('n', '<leader>m', function()
+        render_markdown.toggle()
+      end, { desc = '[M]arkdown Rendering' })
+    end,
+  },
   -- NOTE: Plugins can also be configured to run Lua code when they are loaded.
   --
   -- This is often very useful to both group configuration, as well as handle
