@@ -943,32 +943,136 @@ require('lazy').setup({
     end,
   },
 
-  { -- You can easily change to a different colorscheme.
-    -- Change the name of the colorscheme plugin below, and then
-    -- change the command in the config to whatever the name of that colorscheme is.
-    --
-    -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
-    'ramojus/mellifluous.nvim',
-    priority = 1000, -- Make sure to load this before all the other start plugins.
-    init = function()
-      -- Load the colorscheme here.
-      -- Like many other themes, this one has different styles, and you could load
-      -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'mellifluous'
+  -- MELLIFLUOUS
+  -- { -- You can easily change to a different colorscheme.
+  --   -- Change the name of the colorscheme plugin below, and then
+  --   -- change the command in the config to whatever the name of that colorscheme is.
+  --   --
+  --   -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
+  --   'ramojus/mellifluous.nvim',
+  --   priority = 1000, -- Make sure to load this before all the other start plugins.
+  --   init = function()
+  --     -- Load the colorscheme here.
+  --     -- Like many other themes, this one has different styles, and you could load
+  --     -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
+  --     vim.cmd.colorscheme 'mellifluous'
+  --
+  --     -- You can configure highlights by doing something like:
+  --     vim.cmd.hi 'Comment gui=none'
+  --   end,
+  --   opts = {
+  --     color_set = 'mellifluous', -- mellifluous, alduin, mountain, tender, kanagawa_dragon
+  --     transparent_background = { enabled = false },
+  --     mellifluous = {
+  --       neutral = false,
+  --       bg_contrast = 'hard',
+  --     },
+  --   },
+  -- },
 
-      -- You can configure highlights by doing something like:
+  -- GRUVBOX
+  -- {
+  --   'ellisonleao/gruvbox.nvim',
+  --   priority = 1000,
+  --   init = function()
+  --     vim.cmd.colorscheme 'gruvbox'
+  --     vim.cmd.hi 'Comment gui=none'
+  --   end,
+  --   opts = {
+  --   },
+  -- },
+
+  -- GRUVBOX MATERIAL
+  -- {
+  --   'f4z3r/gruvbox-material.nvim',
+  --   name = 'gruvbox-material',
+  --   lazy = false,
+  --   priority = 1000,
+  --   init = function()
+  --     vim.cmd.colorscheme 'gruvbox-material'
+  --     vim.cmd.hi 'Comment gui=none'
+  --   end,
+  --   opts = {
+  --     italics = true, -- enable italics in general
+  --     contrast = 'hard', -- set contrast, can be any of "hard", "medium", "soft"
+  --     comments = {
+  --       italics = true, -- enable italic comments
+  --     },
+  --     background = {
+  --       transparent = false, -- set the background to transparent
+  --     },
+  --     float = {
+  --       force_background = false, -- force background on floats even when background.transparent is set
+  --       background_color = nil, -- set color for float backgrounds. If nil, uses the default color set
+  --       -- by the color scheme
+  --     },
+  --     signs = {
+  --       highlight = true, -- whether to highlight signs
+  --     },
+  --     customize = nil, -- customize the theme in any way you desire, see below what this
+  --     -- configuration accepts
+  --   },
+  -- },
+
+  -- CATPPUCCIN
+  {
+    'catppuccin/nvim',
+    name = 'catppuccin',
+    lazy = false,
+    priority = 1000,
+    init = function()
+      vim.cmd.colorscheme 'catppuccin'
       vim.cmd.hi 'Comment gui=none'
     end,
     opts = {
-      color_set = 'mountain', -- mellifluous, alduin, mountain, tender, kanagawa_dragon
-      transparent_background = { enabled = false },
-      mellifluous = {
-        neutral = false,
-        bg_contrast = 'hard',
+      flavour = 'auto', -- latte, frappe, macchiato, mocha
+      background = { -- :h background
+        light = 'latte',
+        dark = 'mocha',
+      },
+      transparent_background = false, -- disables setting the background color.
+      show_end_of_buffer = false, -- shows the '~' characters after the end of buffers
+      term_colors = false, -- sets terminal colors (e.g. `g:terminal_color_0`)
+      dim_inactive = {
+        enabled = false, -- dims the background color of inactive window
+        shade = 'dark',
+        percentage = 0.15, -- percentage of the shade to apply to the inactive window
+      },
+      no_italic = false, -- Force no italic
+      no_bold = false, -- Force no bold
+      no_underline = false, -- Force no underline
+      styles = { -- Handles the styles of general hi groups (see `:h highlight-args`):
+        comments = { 'italic' }, -- Change the style of comments
+        conditionals = { 'italic' },
+        loops = {},
+        functions = {},
+        keywords = {},
+        strings = {},
+        variables = {},
+        numbers = {},
+        booleans = {},
+        properties = {},
+        types = {},
+        operators = {},
+        -- miscs = {}, -- Uncomment to turn off hard-coded styles
+      },
+      color_overrides = {},
+      custom_highlights = {},
+      default_integrations = true,
+      integrations = {
+        cmp = true,
+        gitsigns = true,
+        nvimtree = true,
+        treesitter = true,
+        notify = false,
+        mini = {
+          enabled = true,
+          indentscope_color = '',
+        },
+        -- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
       },
     },
   },
-
   -- Highlight todo, notes, etc in comments
   { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
 
