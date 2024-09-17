@@ -371,7 +371,14 @@ require('lazy').setup({
       end, { desc = '[M]arkdown Rendering' })
     end,
   },
-  -- NOTE: Plugins can also be configured to run Lua code when they are loaded.
+  {
+    'windwp/nvim-autopairs',
+    event = 'InsertEnter',
+    config = true,
+    -- use opts = {} for passing setup options
+    -- this is equivalent to setup({}) function
+  },
+  -- NOTE: Plugins can also be configured to run Lua code when they are loaded.my
   --
   -- This is often very useful to both group configuration, as well as handle
   -- lazy loading plugins that don't need to be loaded immediately at startup.
