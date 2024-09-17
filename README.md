@@ -9,6 +9,7 @@ Visit the original here: [nvim-lua/kickstart.nvim](https://github.com/nvim-lua/k
 - ThePrimeagen/harpoon
 - folke/trouble.nvim
 - MeanderingProgrammer/render-markdown.nvim
+- windwp/nvim-autopairs
 
 # Language specific configs
 ## Python
