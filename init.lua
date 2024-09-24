@@ -1092,14 +1092,14 @@ require('lazy').setup({
         comments = { 'italic' }, -- Change the style of comments
         conditionals = { 'italic' },
         loops = {},
-        functions = {},
+        functions = { 'italic' },
         keywords = {},
         strings = {},
         variables = {},
         numbers = {},
         booleans = {},
         properties = {},
-        types = {},
+        types = { 'italic' },
         operators = {},
         -- miscs = {}, -- Uncomment to turn off hard-coded styles
       },
