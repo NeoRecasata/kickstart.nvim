@@ -133,7 +133,7 @@ return {
     },
   },
 
-  -- Smooth scrolling
+  -- Smooth scrolling (page-level)
   {
     'karb94/neoscroll.nvim',
     event = 'VeryLazy',
@@ -141,6 +141,7 @@ return {
       mappings = { '<C-u>', '<C-d>', '<C-b>', '<C-f>', 'zt', 'zz', 'zb' },
     },
   },
+
 
   -- Inline color previews for hex, rgb, etc.
   {
@@ -154,5 +155,81 @@ return {
         css_fn = true,
       })
     end,
+  },
+
+  -- Lazygit integration
+  {
+    'kdheepak/lazygit.nvim',
+    cmd = 'LazyGit',
+    keys = {
+      { '<leader>gg', '<cmd>LazyGit<CR>', desc = 'Lazy[G]it' },
+    },
+    dependencies = { 'nvim-lua/plenary.nvim' },
+  },
+
+  -- Floating terminal
+  {
+    'akinsho/toggleterm.nvim',
+    version = '*',
+    keys = {
+      { '<C-\\>', desc = 'Toggle terminal' },
+      { '<leader>tf', '<cmd>ToggleTerm direction=float<CR>', desc = '[T]erminal [F]loat' },
+      { '<leader>tv', '<cmd>ToggleTerm direction=vertical size=80<CR>', desc = '[T]erminal [V]ertical' },
+      { '<leader>th', '<cmd>ToggleTerm direction=horizontal size=15<CR>', desc = '[T]erminal [H]orizontal' },
+    },
+    opts = {
+      open_mapping = [[<C-\>]],
+      direction = 'float',
+      float_opts = {
+        border = 'curved',
+      },
+    },
+  },
+
+  -- Pretty diagnostics list
+  {
+    'folke/trouble.nvim',
+    cmd = 'Trouble',
+    keys = {
+      { '<leader>xx', '<cmd>Trouble diagnostics toggle<CR>', desc = 'Diagnostics (Trouble)' },
+      { '<leader>xb', '<cmd>Trouble diagnostics toggle filter.buf=0<CR>', desc = 'Buffer Diagnostics (Trouble)' },
+      { '<leader>xs', '<cmd>Trouble symbols toggle<CR>', desc = 'Symbols (Trouble)' },
+    },
+    opts = {},
+  },
+
+  -- Lualine statusline (replaces mini.statusline)
+  {
+    'nvim-lualine/lualine.nvim',
+    lazy = false,
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    opts = {
+      options = {
+        theme = 'auto',
+        section_separators = { left = '', right = '' },
+        component_separators = { left = '', right = '' },
+      },
+      sections = {
+        lualine_a = { 'mode' },
+        lualine_b = { 'branch', 'diff', 'diagnostics' },
+        lualine_c = { { 'filename', path = 1 } },
+        lualine_x = { 'filetype' },
+        lualine_y = { 'progress' },
+        lualine_z = { 'location' },
+      },
+    },
+  },
+
+  -- Rainbow delimiters
+  {
+    'HiPhish/rainbow-delimiters.nvim',
+    event = 'VeryLazy',
+  },
+
+  -- Auto close/rename HTML tags
+  {
+    'windwp/nvim-ts-autotag',
+    event = 'InsertEnter',
+    opts = {},
   },
 }
