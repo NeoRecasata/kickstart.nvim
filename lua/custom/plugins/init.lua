@@ -6,14 +6,31 @@ return {
   {
     'nvim-tree/nvim-tree.lua',
     version = '*',
-    cmd = { 'NvimTreeToggle', 'NvimTreeOpen', 'NvimTreeFocus' },
+    lazy = false,
     keys = {
       { '<leader>e', '<cmd>NvimTreeToggle<CR>', desc = 'File [E]xplorer' },
     },
     dependencies = {
       'nvim-tree/nvim-web-devicons',
     },
-    config = function() require('nvim-tree').setup {} end,
+    config = function()
+      require('nvim-tree').setup {
+        open_on_setup = false,
+      }
+      -- Auto-open nvim-tree when opening a directory
+      vim.api.nvim_create_autocmd('VimEnter', {
+        callback = function(data)
+          local is_directory = vim.fn.isdirectory(data.file) == 1
+          local no_name = data.file == '' and vim.bo[data.buf].buftype == ''
+          if is_directory then
+            vim.cmd.cd(data.file)
+            require('nvim-tree.api').tree.open()
+          elseif no_name then
+            require('nvim-tree.api').tree.open()
+          end
+        end,
+      })
+    end,
   },
   {
     'nvimdev/dashboard-nvim',
@@ -54,6 +71,88 @@ return {
       require('flutter-tools').setup {
         vim.keymap.set('n', '<leader>F', ':Telescope flutter commands<CR>', { desc = '[F]lutter Commands', silent = true }),
       }
+    end,
+  },
+
+  -- Floating cmdline, messages, and popups
+  {
+    'folke/noice.nvim',
+    event = 'VeryLazy',
+    dependencies = {
+      'MunifTanjim/nui.nvim',
+      'rcarriga/nvim-notify',
+    },
+    opts = {
+      lsp = {
+        override = {
+          ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
+          ['vim.lsp.util.stylize_markdown'] = true,
+          ['cmp.entry.get_documentation'] = true,
+        },
+      },
+      presets = {
+        bottom_search = true,
+        command_palette = true,
+        long_message_to_split = true,
+        lsp_doc_border = true,
+      },
+    },
+  },
+
+  -- Animated notification popups
+  {
+    'rcarriga/nvim-notify',
+    opts = {
+      background_colour = '#000000',
+      stages = 'fade_in_slide_out',
+      timeout = 3000,
+      max_height = function() return math.floor(vim.o.lines * 0.75) end,
+      max_width = function() return math.floor(vim.o.columns * 0.75) end,
+    },
+  },
+
+  -- Tab bar for open buffers
+  {
+    'akinsho/bufferline.nvim',
+    version = '*',
+    event = 'VeryLazy',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    keys = {
+      { '<S-h>', '<cmd>BufferLineCyclePrev<CR>', desc = 'Prev buffer' },
+      { '<S-l>', '<cmd>BufferLineCycleNext<CR>', desc = 'Next buffer' },
+      { '<leader>bp', '<cmd>BufferLineTogglePin<CR>', desc = '[B]uffer [P]in' },
+      { '<leader>bx', '<cmd>BufferLineCloseOthers<CR>', desc = '[B]uffer Close Others' },
+    },
+    opts = {
+      options = {
+        diagnostics = 'nvim_lsp',
+        offsets = {
+          { filetype = 'NvimTree', text = 'File Explorer', highlight = 'Directory', separator = true },
+        },
+      },
+    },
+  },
+
+  -- Smooth scrolling
+  {
+    'karb94/neoscroll.nvim',
+    event = 'VeryLazy',
+    opts = {
+      mappings = { '<C-u>', '<C-d>', '<C-b>', '<C-f>', 'zt', 'zz', 'zb' },
+    },
+  },
+
+  -- Inline color previews for hex, rgb, etc.
+  {
+    'norcalli/nvim-colorizer.lua',
+    event = 'VeryLazy',
+    config = function()
+      require('colorizer').setup({
+        '*',
+      }, {
+        css = true,
+        css_fn = true,
+      })
     end,
   },
 }

@@ -160,6 +160,9 @@ vim.o.inccommand = 'split'
 -- Show which line your cursor is on
 vim.o.cursorline = true
 
+-- Hide ~ end-of-buffer markers
+vim.opt.fillchars:append { eob = ' ', vert = '▎' }
+
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.o.scrolloff = 10
 
@@ -797,6 +800,16 @@ require('lazy').setup({
     config = function()
       vim.opt.background = 'dark' -- or "light"
       vim.cmd.colorscheme 'oxocarbon'
+
+      -- Distinct window separators
+      vim.api.nvim_set_hl(0, 'WinSeparator', { fg = '#ee5396', bold = true })
+
+      -- Dim inactive windows
+      vim.api.nvim_set_hl(0, 'NormalNC', { bg = '#0a0a0a' })
+
+      -- NvimTree gets its own darker background
+      vim.api.nvim_set_hl(0, 'NvimTreeNormal', { bg = '#0a0a0a' })
+      vim.api.nvim_set_hl(0, 'NvimTreeEndOfBuffer', { fg = '#0a0a0a', bg = '#0a0a0a' })
     end,
   },
 
@@ -861,7 +874,7 @@ require('lazy').setup({
   --  Uncomment any of the lines below to enable them (you will need to restart nvim).
   --
   -- require 'kickstart.plugins.debug',
-  -- require 'kickstart.plugins.indent_line',
+  require 'kickstart.plugins.indent_line',
   -- require 'kickstart.plugins.lint',
   -- require 'kickstart.plugins.autopairs',
   -- require 'kickstart.plugins.neo-tree',
